@@ -1,0 +1,162 @@
+﻿@using WebApplicationE.ViewModels;
+@{
+    List<Card> cards = ViewBag.cards;
+}
+
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #eaf2e3; /* 浅绿色背景 */
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background-color: #fff; /* 白色背景 */
+    }
+    .table-striped tbody tr {
+        margin-bottom: 5px; /* 调整所需的间距值 */
+    }
+    table {
+        border-collapse: collapse; /* 折叠表格边框 */
+    }
+
+    th, td {
+        border: 1px solid #373737; /* 添加边框线样式 */
+        padding: 8px; /* 添加单元格内边距 */
+        font-weight: bold; /* 将所有表头设置为粗体 */
+        text-align: center;
+    }
+
+    .btn-blue {
+        background-color: #4399F0; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red {
+        background-color: #FA685E; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-blue1 {
+        background-color: #3405bf; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red1 {
+        background-color: #d57309; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .add-button {
+        background-color: forestgreen; /* 绿色背景 */
+        color: white; /* 白色字体 */
+        transform: scale(1.1);
+    }
+    thead {
+        background-color: green; /* 绿色背景 */
+        color: white; /* 白色字体 */
+    }
+    h2 {
+        color: white; /* 白色字体 */
+        background-color: #27be62;
+        border: 1px solid black; /* 添加黑色边框线样式 */
+        padding: 8px; /* 添加内边距 */
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* 添加黑色边框 */
+        display: inline-block;
+        position: relative; /* 相对定位 */
+        margin-bottom: 10px; /* 底部外边距用于与表格保持距离 */
+        z-index: 1; /* 设置 z-index 属性来控制叠放顺序 */
+        left: 50%; /* 水平方向上移动至页面宽度一半位置 */
+        transform: translateX(-50%); /* 调整位置使其水平居中 */
+    }
+
+   
+</style>
+
+<h2>個人資料</h2>
+
+<div style="width: 90vw; overflow-x: auto;">
+    <table class="table table-striped" style="width: 90%;"  id="H2show">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>員工名稱</th>
+                <th>年齡</th>
+                <th>狀態</th>
+                <th>功能</th>
+
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (Card card in cards)
+            {
+            <tr data-card-id="@card.id">
+                <td>@card.id</td>
+                <td>@card.nam</td>
+                <td>@card.age</td>
+                <td>@card.sta</td>
+               
+                <td>
+                    <button onclick="location.href='@Url.Action("EditRole", new { id = card.id })'" class="btn-blue">編 輯</button>&nbsp;
+
+                    <button onclick="location.href='@Url.Action("DeleteRole", new { id = card.id })'" class="btn-red">刪 除</button>
+
+                    <button onclick="deleteCard(@card.id)" class="btn-red">Ajax 刪除</button>
+
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p>
+    <button onclick="location.href='@Url.Action("CreateRole")'" class="btn-light-green add-button">新增資料</button>&nbsp;
+    <button onclick="H2hide()" class="btn-blue1">隱藏js</button>
+    <button onclick="H2show()" class="btn-red1">展示js</button>&nbsp;
+    <button id="jqshow" class="btn-blue1">展示jq</button>
+    <button id="jqhide" class="btn-red1">隱藏jq</button>
+
+</p>
+
+
+<script>
+    function H2show() {
+        document.getElementById("H2show").style.visibility = "initial";
+    }
+    function H2hide() {
+        document.getElementById("H2show").style.visibility = "hidden";
+    }
+
+    $("#jqshow").click(function () {
+        $("#H2show").show("slow");
+    });
+
+    $("#jqhide").click(function () {
+        $("#H2show").hide("slow");
+    });
+
+    function deleteCard(cardId) {
+        if (confirm("確定要刪除此卡片嗎？")) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteRoleAjax", "Home")",
+                data: { id: cardId },
+                dataType:"json",
+                success: function (result) {
+                    
+                    if (result.success) {
+                        $("tr[data-card-id='" + cardId + "']").remove();
+                        alert("刪除卡片成功。");
+                    } else {
+                        alert("刪除卡片時發生錯誤。");
+                    }
+                },
+                error: function () {
+                    alert("刪除卡片時發生錯誤2。");
+                }
+            });
+        }
+    }
+
+    
+    
+</script>

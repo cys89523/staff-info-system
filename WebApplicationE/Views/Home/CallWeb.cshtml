@@ -1,0 +1,30 @@
+﻿@using WebApplicationE.ViewModels;
+@{
+    List<Card> cards = ViewBag.cards;
+}
+<div style="width: 90vw; overflow-x: auto;">
+    <table class="table table-striped" style="width: 90%;" id="H2show">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>員工名稱</th>
+                <th>年齡</th>
+                <th>狀態</th>
+                <th>功能</th>
+
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (Card card in cards)
+            {
+                <tr data-card-id="@card.id">
+                    <td>@card.id</td>
+                    <td>@card.nam</td>
+                    <td>@card.age</td>
+                    <td>@card.sta</td>                 
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

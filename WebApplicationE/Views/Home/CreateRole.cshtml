@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "CreateRole";
+}
+
+
+<h2>新增人員</h2>
+<br />
+
+<form method="post" action="/Home/CreateRole">
+    <div class="form-group row">
+        <label for="inputCharName" class="col-sm-2">編號</label>
+        <div class="col-sm-10">
+            <input type="number" id="inputCharName" name="id" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputCharName" class="col-sm-2">員工名稱</label>
+        <div class="col-sm-10">
+            <input type="text" id="inputCharName" name="nam" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputCardName" class="col-sm-2">年齡</label>
+        <div class="col-sm-10">
+            <input type="number" id="inputCharAge" name="age" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputCardName" class="col-sm-2">狀態</label>
+        <div class="col-sm-10">
+            <input type="text" id="inputCharName" name="sta" class="form-control" />
+        </div>
+    </div>
+    <input class="btn btn-default" type="submit" value="新增" />
+</form>
+
+
+<div style="margin-top: 20px;">
+    <input type="number" id="id-input" placeholder="請輸入編號ajax" />
+    <input type="text" id="nam-input" placeholder="請輸入姓名ajax" />
+    <input type="number" id="age-input" placeholder="請輸入年齡ajax" />
+    <input type="text" id="sta-input" placeholder="請輸入狀態ajax" />
+    <input type="button" id="add-btn" value="新增" />
+    <h3 id="result" style="background-color: yellow"></h3>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#add-btn").click(function () {
+        var id = $("#id-input").val();
+        var nam = $("#nam-input").val();
+        var age = $("#age-input").val();
+        var sta= $("#sta-input").val();
+
+        // 创建一个包含要发送的数据的对象
+        var data = {
+            id: id,
+            nam: nam,
+            age: age,
+            sta: sta
+        };
+
+        $.ajax({
+            url: '@Url.Action("CreateRole", "Home")',// 根据你的后端设置正确的URL
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (response) {
+                $("#result").text("資料已成功新增！");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#result").text("新增資料失敗！");
+            }
+        });
+    });
+</script>

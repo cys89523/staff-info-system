@@ -1,0 +1,118 @@
+﻿
+
+@using WebApplicationE.ViewModels
+@{
+    List<AccountViewModel> cards = ViewBag.cards;
+}
+
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #eaf2e3; /* 浅绿色背景 */
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background-color: #fff; /* 白色背景 */
+    }
+
+    .table-striped tbody tr {
+        margin-bottom: 5px; /* 调整所需的间距值 */
+    }
+
+    table {
+        border-collapse: collapse; /* 折叠表格边框 */
+    }
+
+    th, td {
+        border: 1px solid #373737; /* 添加边框线样式 */
+        padding: 8px; /* 添加单元格内边距 */
+        font-weight: bold; /* 将所有表头设置为粗体 */
+        text-align: center;
+    }
+
+    .btn-blue {
+        background-color: #4399F0; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red {
+        background-color: #FA685E; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-blue1 {
+        background-color: #3405bf; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red1 {
+        background-color: #d57309; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .add-button {
+        background-color: forestgreen; /* 绿色背景 */
+        color: white; /* 白色字体 */
+        transform: scale(1.1);
+    }
+
+    thead {
+        background-color: green; /* 绿色背景 */
+        color: white; /* 白色字体 */
+    }
+
+    h2 {
+        color: white; /* 白色字体 */
+        background-color: #27be62;
+        border: 1px solid black; /* 添加黑色边框线样式 */
+        padding: 8px; /* 添加内边距 */
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* 添加黑色边框 */
+        display: inline-block;
+        position: relative; /* 相对定位 */
+        margin-bottom: 10px; /* 底部外边距用于与表格保持距离 */
+        z-index: 1; /* 设置 z-index 属性来控制叠放顺序 */
+        left: 50%; /* 水平方向上移动至页面宽度一半位置 */
+        transform: translateX(-50%); /* 调整位置使其水平居中 */
+    }
+</style>
+
+<h2>全體員工資料</h2>
+
+<div style="width: 90vw; overflow-x: auto;">
+    <table class="table table-striped" style="width: 90%;" id="grid1">
+        <thead>
+            <tr>
+                <th>員工編號</th>
+                <th>員工名稱</th>
+                <th>密碼</th>
+                <th>上次登入時間</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (AccountViewModel card in cards)
+            {
+                <tr>
+                    <td>@card.SNo</td>
+                    <td>@card.SName</td>
+                    <td>@card.SPass</td>
+                    <td>@card.SDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#grid1').DataTable({
+            "paging": true, // 开启分页功能
+            "lengthMenu": [10, 25, 50, 75, 100], // 设置每页显示的行数选项
+            "pageLength": 10, // 设置默认每页显示的行数
+            "searching": true, // 开启搜索功能
+            "ordering": true, // 开启排序功能
+            "info": true // 显示表格信息，例如当前显示的行数和总行数
+            // 可根据需要添加更多配置选项
+        });
+    });
+</script>

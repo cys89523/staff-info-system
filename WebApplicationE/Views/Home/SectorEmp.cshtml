@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "SectorEmp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        background-color: #dfffe3; /* 淡绿色 */
+    }
+    .title-wrapper span {
+        font-weight: bold; /* 设置粗体字体 */
+        font-size: 24px; /* 设置字体大小，这里使用 24px 作为示例值 */
+    }
+    h2 {
+        color: #0b9700; /* 绿色字体 */
+        border: 1px solid #000000; /* 绿色边框线 */
+        padding: 10px; /* 添加一些内边距，使文本与边框有间隔 */
+        background-color: #ffffff;
+        display: inline-block;
+        font-weight: bold;
+    }
+    .custom-dropdown {
+        font-size: 20px; /* 设置字体大小，这里使用 18px 作为示例值 */
+    }
+    .search-button {
+        font-size: 18px; /* 设置字体大小，这里使用 18px 作为示例值 */
+        background-color: green; /* 绿色背景 */
+        color: #f3f3f3; /* 白色字体 */
+        font-weight: bold;
+    }
+</style>
+<h2 class="search-title">搜尋員工狀態</h2>
+
+<br />
+
+@using (Html.BeginForm("SectorEmpResult", "Home", FormMethod.Post))
+{
+    <div>
+        <span class="title-wrapper"><span>搜尋員工部門:</span></span>
+        @Html.DropDownList("sta", (List<SelectListItem>)ViewBag.SectorList, new { @class = "custom-dropdown", style = "width:180px", @required = "required" })
+        <input type="submit" value="搜尋" class="search-button" />
+    </div>
+}

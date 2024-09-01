@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- 引入jQuery -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!-- 引入jQuery Validate插件和Unobtrusive插件 -->
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- 引入Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- 引入DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        .custom-navbar {
+            background-color: forestgreen; /* 浅绿色 */
+        }
+
+        .white-link {
+            color: #eeeeee; /* 白色 */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        /* 將使用者名稱設為 inline-block 並對齊居中 */
+        #user-name {
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* 為 navbar 的元素撐開寬度，並使使用者名稱置於 navbar 最右邊 */
+        .navbar-nav.ml-auto {
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top custom-navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>-->
+                    @*<span class="icon-bar"></span>
+                    <span class="icon-bar"></span>*@
+                <!--</button>-->
+                @Html.ActionLink("員工資料", "Index", "Home", new { area = "" }, new { @class = "navbar-brand white-link" })
+            @*</div>
+            <div class=" navbar-collapse collapse">*@
+                <ul class="nar navbar-nav ml-auto">
+                    <li>@Html.ActionLink("首頁", "Index", "Home", new { style = "color:Red" }, new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("搜尋部門員工", "SectorEmp", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("搜尋員工資料", "EmpData", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("搜尋員工姓名", "EmpName", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("inner join", "join", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("Left  join", "Ljoin", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("Right  join", "Rjoin", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("登入", "Login", "Home", new { @class = "navbar-brand white-link" })</li>
+                    <li> @Html.ActionLink("匯出 Excel", "ExportExcel", "Home", null, new { @class = "navbar-brand white-link" })</li>
+                    <li>@Html.ActionLink("匯出 PDF", "ExportPDF", "Home", null, new { @class = "navbar-brand white-link" })</li>
+</ul>
+                @*<ul class="navbar-nav mr-auto">*@
+                   
+
+                    @*<li class="nav-item">*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="navbar-brand white-link" href="@Url.Action("Logout", "Home")">登出</a>
+                        }
+                    @*</li>*@
+                    @*<li class="nav-item">*@
+                        @if (User.Identity.IsAuthenticated && Session["NAM"] != null)
+                        {
+                        <span class="navbar-brand white-link ml-auto ">使用者:@Session["NAM"].ToString()</span>
+                        }
+                    @*</li>*@
+                @*</ul>*@
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+
+   
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   
+  
+    @RenderSection("scripts", required: false)
+</body>
+</html>

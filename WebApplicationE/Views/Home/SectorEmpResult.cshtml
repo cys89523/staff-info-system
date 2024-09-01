@@ -1,0 +1,41 @@
+﻿
+@model IEnumerable<WebApplicationE.ViewModels.Card>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.title</h2>
+<style>
+    thead {
+        color: #fff; /* 白色字体 */
+        font-weight: bold; /* 设置粗体字体 */
+    }
+    </style>
+<div>
+    <table class="table table-bordered" style="table-layout:fixed;width:100%">
+        <thead style="background-color:#11a114">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.id)</th>
+                <th>@Html.DisplayNameFor(model => model.nam)</th>
+                <th>@Html.DisplayNameFor(model => model.age)</th>
+                <th>@Html.DisplayNameFor(model => model.sta)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Count().Equals(0))
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.nam)</td>
+                        <td>@Html.DisplayFor(modelItem => item.age)</td>
+                        <td>@Html.DisplayFor(modelItem => item.sta)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

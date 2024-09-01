@@ -1,0 +1,47 @@
+﻿
+@model WebApplicationE.ViewModels.Card
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    th {
+        width: 20%;
+    }
+
+    .markClass {
+        background-color: #5ae2a7;
+        font-weight: bold;
+        font-size:18px;
+    }
+   h2 {
+        color: #058600; /* 白色字体 */
+        font-weight: bold; /* 设置粗体字体 */
+    }
+</style>
+
+<h2> 員工資料</h2>
+
+<div>
+    <table class="table table-bordered">
+        <tr class="markClass">
+            <th>@Html.DisplayNameFor(model => model.id)</th>
+            <td>@Html.DisplayFor(model => model.id)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.nam)</th>
+            <td>@Html.DisplayFor(model => model.nam)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.age)</th>
+            <td>@Html.DisplayFor(model => model.age)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.sta)</th>
+            <td>@Html.DisplayFor(model => model.sta)</td>
+        </tr>
+
+    </table>
+</div>

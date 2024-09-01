@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Login";
+    // 假設您從控制器中獲取了真實的 cards 集合
+    List<Card> cards = ViewBag.cards; // 或者使用合適的方式從控制器中獲取 cards 集合
+}
+@using WebApplicationE.ViewModels;
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<div style="text-align: center;">
+    <form style="display: inline-block; text-align: left;" method="post" action="@Url.Action("Login")">
+        <h1>員工資訊紀錄系統</h1>
+        <div>
+            <span style="color:red">@ViewBag.Msg</span>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">帳號</label>
+            <input type="text" class="form-control" id="Account" name="account" placeholder="輸入帳號" value="">
+            <small id="emailHelp" class="form-text text-muted">請輸入英數字</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">密碼</label>
+            <input type="password" class="form-control" id="Password1" name="password" placeholder="輸入密碼" value="">
+        </div>
+        <button type="submit" class="btn btn-primary">登入</button>&nbsp;
+        <button type="button" class="btn btn-primary" id="loginBtn">打開登入對話框</button>
+    </form>
+</div>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <!-- 將 modal-dialog 的 class 改為 modal-dialog-centered -->
+        <div class="modal-content">
+            <form method="post" action="">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">員工資訊紀錄系統</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <span style="color:red">@ViewBag.Msg</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">帳號</label>
+                        <input type="text" class="form-control" id="Account" name="account" placeholder="輸入帳號" value="">
+                        <small id="emailHelp" class="form-text text-muted">請輸入英數字</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密碼</label>
+                        <input type="password" class="form-control" id="Password1" name="password" placeholder="輸入密碼" value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    <button type="submit" class="btn btn-primary">登入</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p>@ViewBag.Err</p>
+
+@Html.Partial("_TablePartial", cards);
+
+<script>
+    $(document).ready(function () {
+        // 手动打开对话框
+        $("#loginBtn").click(function () {
+            $("#loginModal").modal("show");
+        });
+    });
+</script>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a  href="@Url.Action("Logout", "Home")">登出</a>
+}

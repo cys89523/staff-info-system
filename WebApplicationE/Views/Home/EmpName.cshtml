@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>搜尋員工姓名（使用ajax）</h2>
+
+<div style="margin-top: 20px;">
+    <input type="text" id="empno-use-ajax" placeholder="請輸入員編" />
+    <input type="button" id="empno-use-ajax-btn" value="確認" />
+    <input type="button" id="empno-reset-btn" value="清除" />
+    <h3 id="result" style="background-color: yellow"></h3>
+</div>
+
+<script>
+    $("#empno-use-ajax-btn").click(function () {
+        $.ajax({
+            url: '@Url.Action("EmpNameResult", "Home")',
+            type: 'GET',
+            data: { "empno": $('#empno-use-ajax').val() },
+            async: false,
+            success: function (msg) {
+                debugger;
+                $("#result").text(msg);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    });
+
+    $("#empno-reset-btn").click(function () {
+        $("#result").html("");
+    });
+</script>

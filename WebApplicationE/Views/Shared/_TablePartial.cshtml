@@ -1,0 +1,106 @@
+﻿@using WebApplicationE.ViewModels;
+@{
+    List<Card> cards = ViewBag.cards;
+}
+
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #eaf2e3; /* 浅绿色背景 */
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background-color: #fff; /* 白色背景 */
+    }
+
+    .table-striped tbody tr {
+        margin-bottom: 5px; /* 调整所需的间距值 */
+    }
+
+    table {
+        border-collapse: collapse; /* 折叠表格边框 */
+    }
+
+    th, td {
+        border: 1px solid #373737; /* 添加边框线样式 */
+        padding: 8px; /* 添加单元格内边距 */
+        font-weight: bold; /* 将所有表头设置为粗体 */
+        text-align: center;
+    }
+
+    .btn-blue {
+        background-color: #4399F0; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red {
+        background-color: #FA685E; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-blue1 {
+        background-color: #3405bf; /* 蓝色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .btn-red1 {
+        background-color: #d57309; /* 红色背景 */
+        color: #f3f3f3; /* 白色字体 */
+    }
+
+    .add-button {
+        background-color: forestgreen; /* 绿色背景 */
+        color: white; /* 白色字体 */
+        transform: scale(1.1);
+    }
+
+    thead {
+        background-color: green; /* 绿色背景 */
+        color: white; /* 白色字体 */
+    }
+
+    h2 {
+        color: white; /* 白色字体 */
+        background-color: #27be62;
+        border: 1px solid black; /* 添加黑色边框线样式 */
+        padding: 8px; /* 添加内边距 */
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* 添加黑色边框 */
+        display: inline-block;
+        position: relative; /* 相对定位 */
+        margin-bottom: 10px; /* 底部外边距用于与表格保持距离 */
+        z-index: 1; /* 设置 z-index 属性来控制叠放顺序 */
+        left: 50%; /* 水平方向上移动至页面宽度一半位置 */
+        transform: translateX(-50%); /* 调整位置使其水平居中 */
+    }
+</style>
+
+
+
+
+<div style="width: 90vw; overflow-x: auto;">
+    <table class="table table-striped" style="width: 90%;" id="H2show">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>員工名稱</th>
+                <th>年齡</th>
+                <th>狀態</th>
+                <th>身分證號</th>
+
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (Card card in cards)
+            {
+                <tr>
+                    <td>@card.id</td>
+                    <td>@card.nam</td>
+                    <td>@card.age</td>
+                    <td>@card.sta</td>
+                    <td>@card.bor </td>
+
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
